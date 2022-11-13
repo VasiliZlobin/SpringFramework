@@ -1,3 +1,5 @@
+package ru.vasili_zlobin.spring;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.vasili_zlobin.spring.model.Cart;
 import ru.vasili_zlobin.spring.model.ProductRepository;
