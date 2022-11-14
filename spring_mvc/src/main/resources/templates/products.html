@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Список товаров</title>
+</head>
+<body>
+<h1>Список товаров</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>COST</th>
+    </tr>
+    <tr th:each="p : ${productList}">
+        <td th:text="${p.getId()}"/>
+        <td>
+            <a th:href="@{http://localhost:8888/mvc/products/{id}(id = ${p.getId()})}"><span th:text="${p.getTitle()}"/></a>
+        </td>
+        <td th:text="${p.getCost()}"/>
+    </tr>
+</table>
+
+<h1>Всего товаров: <Span th:text="${productList.size()}"/></h1>
+</body>
+</html>
