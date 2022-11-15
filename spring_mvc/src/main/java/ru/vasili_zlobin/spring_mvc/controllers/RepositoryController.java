@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.vasili_zlobin.spring_mvc.model.Product;
 import ru.vasili_zlobin.spring_mvc.model.ProductRepository;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
