@@ -14,7 +14,7 @@ import java.util.List;
 public class RepositoryController {
 
     @GetMapping
-    public String getViewListProduct(Model model, HttpServletResponse response) {
+    public String getViewListProduct(Model model) {
         model.addAttribute(getListProduct());
         return "products";
     }
