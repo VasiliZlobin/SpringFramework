@@ -9,6 +9,11 @@
 </head>
 <body>
 <h1>Список товаров</h1>
+<br>
+<form method="get" th:action="@{/products/form_add}">
+    <button type="submit">Добавить новый товар</button>
+</form>
+<br>
 <table>
     <tr>
         <th>ID</th>
@@ -18,12 +23,12 @@
     <tr th:each="p : ${productList}">
         <td th:text="${p.getId()}"/>
         <td>
-            <a th:href="@{http://localhost:8888/mvc/products/{id}(id = ${p.getId()})}"><span th:text="${p.getTitle()}"/></a>
+            <a th:href="@{/products/{id}(id = ${p.getId()})}"><span
+                    th:text="${p.getTitle()}"/></a>
         </td>
         <td th:text="${p.getCost()}"/>
     </tr>
 </table>
-
 <h1>Всего товаров: <Span th:text="${productList.size()}"/></h1>
 </body>
 </html>
