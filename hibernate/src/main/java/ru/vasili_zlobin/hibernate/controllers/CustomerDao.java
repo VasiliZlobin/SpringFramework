@@ -53,7 +53,7 @@ public class CustomerDao {
     public List<Product> getProductsForCustomerId(Long id) {
         Session session = getSession();
         session.beginTransaction();
-        Customer customer = session.createQuery("SELECT c FROM Customer c JOIN FETCH c.products WHERE c.id = :id"
+        Customer customer = session.createQuery("SELECT c FROM Customer c LEFT JOIN FETCH c.products WHERE c.id = :id"
                         , Customer.class).setParameter("id", id).getSingleResult();
         List<Product> result = new ArrayList<>();
         if (customer != null) {
