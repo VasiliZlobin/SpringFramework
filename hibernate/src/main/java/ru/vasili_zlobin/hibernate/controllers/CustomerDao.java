@@ -9,55 +9,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ProductDao {
+public class CustomerDao {
 
     private static Session getSession() {
         return ConnectFactory.getSession();
     }
 
-    public void saveOrUpdate(Product product) {
+    public void saveOrUpdate(Customer customer) {
         Session session = getSession();
         session.beginTransaction();
-        if (product.getId() == null) {
-            session.persist(product);
+        if (customer.getId() == null) {
+            session.persist(customer);
         } else {
-            session.merge(product);
+            session.merge(customer);
         }
         session.getTransaction().commit();
     }
 
-    public List<Product> findAll() {
+    public List<Customer> findAll() {
         Session session = getSession();
         session.beginTransaction();
-        List<Product> result = session.createQuery("FROM Product", Product.class).getResultList();
+        List<Customer> result = session.createQuery("FROM Customer", Customer.class).getResultList();
         session.getTransaction().commit();
         return result;
     }
 
-    public Product findById(Long id) {
+    public Customer findById(Long id) {
         Session session = getSession();
         session.beginTransaction();
-        Product product = session.get(Product.class, id);
+        Customer result = session.get(Customer.class, id);
         session.getTransaction().commit();
-        return product;
+        return result;
     }
 
     public void deleteById(Long id) {
         Session session = getSession();
         session.beginTransaction();
-        session.createQuery("DELETE FROM Product WHERE id = :product_id", null)
-                        .setParameter("product_id", id).executeUpdate();
+        session.createQuery("DELETE FROM Customer WHERE id = :customer_id", null)
+                        .setParameter("customer_id", id).executeUpdate();
         session.getTransaction().commit();
     }
 
-    public List<Customer> getCustomersForProductId(Long id) {
+    public List<Product> getProductsForCustomerId(Long id) {
         Session session = getSession();
         session.beginTransaction();
-        Product product = session.createQuery("SELECT p FROM Product p JOIN FETCH p.customers WHERE p.id = :id"
-                        , Product.class).setParameter("id", id).getSingleResult();
-        List<Customer> result = new ArrayList<>();
-        if (product != null) {
-            result = product.getCustomers();
+        Customer customer = session.createQuery("SELECT c FROM Customer c JOIN FETCH c.products WHERE c.id = :id"
+                        , Customer.class).setParameter("id", id).getSingleResult();
+        List<Product> result = new ArrayList<>();
+        if (customer != null) {
+            result = customer.getProducts();
         }
         session.getTransaction().commit();
         return result;
