@@ -1,6 +1,12 @@
 package ru.vasili_zlobin.hibernate.model;
 
 import jakarta.persistence.*;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import ru.vasili_zlobin.hibernate.controllers.ConnectFactory;
+
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -16,6 +22,14 @@ public class Product {
 
     @Column(name = "price")
     private Double price;
+
+    @ManyToMany
+    @JoinTable(
+            name = "purchases",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "customer_id")
+    )
+    private List<Customer> customers;
 
     public Product() {
     }
@@ -43,6 +57,10 @@ public class Product {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Customer> getCustomers() {
+        return Collections.unmodifiableList(customers);
     }
 
     @Override
