@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/goods
+    username: user_goods
+    password: goods
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: none
+
+server:
+  port: 8888
+  servlet:
+    context-path: /jpa
