@@ -11,7 +11,6 @@ angular.module('goods', []).controller('indexController', function ($scope, $htt
                     $scope.pageNumber = response.data.number + 1;
                     $scope.totalPages = response.data.totalPages;
                     $scope.lastPosition = response.data.last && response.data.numberOfElements == 1;
-                    console.log($scope.lastPosition);
                 });
         };
     };
