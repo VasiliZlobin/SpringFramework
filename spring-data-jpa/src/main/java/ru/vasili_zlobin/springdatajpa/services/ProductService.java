@@ -3,15 +3,18 @@ package ru.vasili_zlobin.springdatajpa.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.vasili_zlobin.springdatajpa.model.Product;
-
-import java.util.List;
+import ru.vasili_zlobin.springdatajpa.specifications.ProductSpecification;
 
 @Service
 public class ProductService {
-    private static final long MIN = 20L;
+    private static final long MIN = 100L;
+    private static final int PAGE_SIZE = 10;
 
     @Autowired
     private ProductRepository repository;
@@ -25,22 +28,20 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Product getProductById(Long id) {
-        return repository.findById(id).orElse(null);
+    public Page<Product> find(Double min, Double max, Integer page) {
+        Specification<Product> specification = Specification.where(null);
+        if (min != null && min > 0) {
+            specification.and(ProductSpecification.priceGreaterThan(min));
+        }
+        if (max != null && max > 0) {
+            specification.and(ProductSpecification.priceLessThan(max));
+        }
+        return repository.findAll(PageRequest.of(page - 1, PAGE_SIZE));
     }
 
     @Transactional(readOnly = true)
-    public List<Product> getProducts(Double min, Double max) {
-        if (min > 0 && max > 0) {
-            return repository.getWithPriceMinAnMax(min, max);
-        }
-        if (min > 0) {
-            return repository.getWithPriceMin(min);
-        }
-        if (max > 0) {
-            return repository.getWithPriceMax(max);
-        }
-        return repository.findAll();
+    public Product getProductById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Transactional
