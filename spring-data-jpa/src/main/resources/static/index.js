@@ -1,11 +1,11 @@
 angular.module('goods', []).controller('indexController', function ($scope, $http) {
-    let contextPath = 'http://localhost:8888/jpa';
+    let contextPath = 'http://localhost:8888/jpa/api_1.0/products';
     $scope.pageNumber = 1;
     $scope.totalPages = 1;
 
     $scope.loadProducts = function (page) {
         if (page > 0 && page <= $scope.totalPages) {
-            $http.get(contextPath + '/products/?page=' + page)
+            $http.get(contextPath + '/?page=' + page)
                 .then(function (response) {
                     $scope.ProductsList = response.data.content;
                     $scope.pageNumber = response.data.number + 1;
@@ -16,7 +16,7 @@ angular.module('goods', []).controller('indexController', function ($scope, $htt
     };
 
     $scope.deleteProduct = function (productId) {
-        $http.get(contextPath + '/products/delete/' + productId)
+        $http.delete(contextPath + '/' + productId)
             .then(function (response) {
                 if ($scope.lastPosition) {
                     $scope.pageNumber--;

@@ -1,28 +1,19 @@
-package ru.vasili_zlobin.springdatajpa.model;
+package ru.vasili_zlobin.springdatajpa.dto;
 
-import javax.persistence.*;
+import ru.vasili_zlobin.springdatajpa.model.Product;
 
-@Entity
-@Table(name = "products")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class ProductDto {
     private Long id;
-
-    @Column(name = "title")
     private String title;
-
-    @Column(name = "price")
     private Double price;
 
-    public Product() {
+    public ProductDto() {
     }
 
-    public Product(String title, Double price) {
-        this.title = title;
-        this.price = price;
+    public ProductDto(Product product) {
+        this.id = product.getId();
+        this.title = product.getTitle();
+        this.price = product.getPrice();
     }
 
     public String getTitle() {
