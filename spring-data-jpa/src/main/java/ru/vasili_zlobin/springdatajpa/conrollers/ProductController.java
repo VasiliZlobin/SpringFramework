@@ -1,11 +1,10 @@
 package ru.vasili_zlobin.springdatajpa.conrollers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.vasili_zlobin.springdatajpa.model.Product;
 import ru.vasili_zlobin.springdatajpa.services.ProductService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -14,8 +13,13 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping
-    public List<Product> getListProducts(@RequestParam(defaultValue = "0") Double min, @RequestParam(defaultValue = "0") Double max) {
-        return service.getProducts(min, max);
+    public Page<Product> getListProducts(@RequestParam(defaultValue = "1") Integer page,
+                                         @RequestParam(required = false) Double min,
+                                         @RequestParam(required = false) Double max) {
+        if (page < 1) {
+            page = 1;
+        }
+        return service.find(min, max, page);
     }
 
     @GetMapping("/{id}")
