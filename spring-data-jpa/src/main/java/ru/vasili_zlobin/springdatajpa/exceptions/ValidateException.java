@@ -7,7 +7,7 @@ public class ValidateException extends RuntimeException{
     private final List<String> messages;
 
     public ValidateException(List<String> messages) {
-        super(messages.stream().collect(Collectors.joining("/n")));
+        super(messages.stream().collect(Collectors.joining(",")));
         this.messages = messages;
     }
 
