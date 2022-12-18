@@ -35,8 +35,9 @@ public class ProductController {
 
     @PutMapping
     public void updateProduct(@RequestBody ProductDto dto) {
-        Product product = new Product(dto.getTitle(), dto.getPrice());
-        product.setId(dto.getId());
+        Product product = service.getProductById(dto.getId());
+        product.setTitle(dto.getTitle());
+        product.setPrice(dto.getPrice());
         service.updateProduct(product);
     }
 
