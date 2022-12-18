@@ -24,7 +24,8 @@
                 <td>ID</td>
                 <td>Наименование</td>
                 <td>Цена</td>
-                <td>Действие</td>
+                <td>В корзине</td>
+                <td></td>
             </tr>
 
             <tbody>
@@ -32,6 +33,11 @@
                     <td>{{p.id}}</td>
                     <td>{{p.title}}</td>
                     <td>{{p.price}}</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="changeCart(p.id, -1)">-</button>
+                        {{p.quantityInCart}}
+                        <button class="btn btn-primary" ng-click="changeCart(p.id, 1)">+</button>
+                    </td>
                     <td><button class="btn btn-danger" ng-click="deleteProduct(p.id)">Удалить</button></td>
                 </tr>
             </tbody>
