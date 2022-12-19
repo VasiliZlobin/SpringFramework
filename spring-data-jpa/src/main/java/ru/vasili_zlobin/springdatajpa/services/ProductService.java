@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.vasili_zlobin.springdatajpa.exceptions.ResourceNotFoundException;
 import ru.vasili_zlobin.springdatajpa.model.Product;
 import ru.vasili_zlobin.springdatajpa.specifications.ProductSpecification;
 
@@ -41,7 +42,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Product getProductById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(String.format("Товар с id %d не найден", id)));
     }
 
     @Transactional
@@ -53,5 +54,4 @@ public class ProductService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
-
 }

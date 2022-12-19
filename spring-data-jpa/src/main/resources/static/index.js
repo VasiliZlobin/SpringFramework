@@ -25,5 +25,18 @@ angular.module('goods', []).controller('indexController', function ($scope, $htt
             });
     };
 
+    $scope.changeCart = function (productId, delta) {
+        $http({
+            url: contextPath + '/change_cart',
+            method: 'GET',
+            params: {
+                id: productId,
+                delta: delta
+            }
+        }).then(function (response) {
+            $scope.loadProducts($scope.pageNumber);
+        });
+    };
+
     $scope.loadProducts(1);
 })
