@@ -37,7 +37,7 @@ public class ProductService {
         if (max != null && max > 0) {
             specification.and(ProductSpecification.priceLessThan(max));
         }
-        return repository.findAll(PageRequest.of(page - 1, PAGE_SIZE));
+        return repository.findAll(specification, PageRequest.of(page - 1, PAGE_SIZE));
     }
 
     @Transactional(readOnly = true)
