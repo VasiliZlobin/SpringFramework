@@ -1,9 +1,6 @@
 package ru.vasili_zlobin.hibernate.model;
 
 import jakarta.persistence.*;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import ru.vasili_zlobin.hibernate.controllers.ConnectFactory;
 
 import java.util.Collections;
 import java.util.List;
